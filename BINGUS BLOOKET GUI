@@ -20,7 +20,7 @@ javascript:(function() {
     container.style.zIndex = '9999';
     container.style.color = '#fff';
 
-    // HTML content for the form (with buttons for Set Gold, Set Crypto, Set Weight, Set Lure, and Set Fossils)
+    // HTML content for the form (with buttons for Set Gold, Set Crypto, Set Weight, Set Lure, Set Fossils, Max Stats (CK), and Skip Guest (CK))
     container.innerHTML = `
         <div id="blooketHeader" style="cursor: move; padding: 15px; background-color: #333; border-radius: 6px; text-align: center; font-size: 18px;">
             Bingus's Blooket GUI
@@ -40,6 +40,12 @@ javascript:(function() {
             </button>
             <button id="setFossilsButton" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 10px;">
                 Set Fossils
+            </button>
+            <button id="maxStatsButton" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 10px;">
+                Max Stats (CK)
+            </button>
+            <button id="skipGuestButton" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 10px;">
+                Skip Guest (CK)
             </button>
             <p style="font-size: 12px; color: #ccc; margin-top: 20px;">CTRL + M TOGGLE HIDE</p>
         </div>
@@ -162,6 +168,50 @@ javascript:(function() {
         reactHandler().stateNode.setState({ fossils: fossils });
 
         alert('Fossils added!');
+    });
+
+    // Button functionality for Max Stats (CK)
+    var maxStatsButton = document.getElementById('maxStatsButton');
+    maxStatsButton.addEventListener('click', async function() {
+        let n = document.createElement('iframe');
+        document.body.append(n);
+        window.alert = n.contentWindow.alert.bind(window);
+        window.prompt = n.contentWindow.prompt.bind(window);
+        window.confirm = n.contentWindow.confirm.bind(window);
+        n.remove();
+
+        function reactHandler() {
+            return Object.values(document.querySelector('#app > div > div'))[1].children[1]._owner;
+        }
+
+        if (window.location.pathname != '/kingdom') {
+            alert('You must be in a crazy kingdom game!');
+        } else {
+            reactHandler().stateNode.setState({ materials: 100, people: 100, happiness: 100, gold: 100 });
+            alert('Max stats set!');
+        };
+    });
+
+    // Button functionality for Skip Guest (CK)
+    var skipGuestButton = document.getElementById('skipGuestButton');
+    skipGuestButton.addEventListener('click', async function() {
+        let n = document.createElement('iframe');
+        document.body.append(n);
+        window.alert = n.contentWindow.alert.bind(window);
+        window.prompt = n.contentWindow.prompt.bind(window);
+        window.confirm = n.contentWindow.confirm.bind(window);
+        n.remove();
+
+        function reactHandler() {
+            return Object.values(document.querySelector('#app > div > div'))[1].children[1]._owner;
+        }
+
+        if (window.location.pathname != '/kingdom') {
+            alert('You must be in a crazy kingdom game!');
+        } else {
+            reactHandler().stateNode.nextGuest();
+            alert('Guest skipped!');
+        };
     });
 
     // Hide/Toggle functionality with CTRL + M
