@@ -1,0 +1,224 @@
+javascript:(function() {
+    // Check if the GUI is already open
+    if (document.getElementById('blooketGuiContainer')) {
+        alert('Blooket GUI is already open!');
+        return;
+    }
+
+    // Create the container for the GUI
+    var container = document.createElement('div');
+    container.id = 'blooketGuiContainer';
+    container.style.position = 'fixed';
+    container.style.top = '50%';
+    container.style.left = '50%';
+    container.style.transform = 'translate(-50%, -50%)';
+    container.style.width = '400px';
+    container.style.padding = '20px';
+    container.style.backgroundColor = '#2a2a2a'; // Start with Dark theme
+    container.style.borderRadius = '8px';
+    container.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+    container.style.zIndex = '9999';
+    container.style.color = '#fff';
+
+    // HTML content for the form (with buttons for Set Gold, Set Crypto, Set Weight, Set Lure, and Set Fossils)
+    container.innerHTML = `
+        <div id="blooketHeader" style="cursor: move; padding: 15px; background-color: #333; border-radius: 6px; text-align: center; font-size: 18px;">
+            Bingus's Blooket GUI
+        </div>
+        <div style="margin-top: 20px; text-align: center;">
+            <button id="setGoldButton" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 10px;">
+                Set Gold
+            </button>
+            <button id="setCryptoButton" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 10px;">
+                Set Crypto
+            </button>
+            <button id="setWeightButton" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 10px;">
+                Set Weight
+            </button>
+            <button id="setLureButton" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 10px;">
+                Set Lure
+            </button>
+            <button id="setFossilsButton" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 10px;">
+                Set Fossils
+            </button>
+            <p style="font-size: 12px; color: #ccc; margin-top: 20px;">CTRL + M TOGGLE HIDE</p>
+        </div>
+    `;
+
+    // Append the container to the body
+    document.body.appendChild(container);
+
+    // Make the window draggable
+    var header = document.getElementById('blooketHeader');
+    var isDragging = false;
+    var offsetX, offsetY;
+
+    header.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        offsetX = e.clientX - container.getBoundingClientRect().left;
+        offsetY = e.clientY - container.getBoundingClientRect().top;
+        document.body.style.cursor = 'move';
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (isDragging) {
+            container.style.left = (e.clientX - offsetX) + 'px';
+            container.style.top = (e.clientY - offsetY) + 'px';
+        }
+    });
+
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
+        document.body.style.cursor = 'default';
+    });
+
+    // Button functionality to set gold
+    var setGoldButton = document.getElementById('setGoldButton');
+    setGoldButton.addEventListener('click', async function() {
+        let n = document.createElement('iframe');
+        document.body.append(n);
+        window.alert = n.contentWindow.alert.bind(window);
+        window.prompt = n.contentWindow.prompt.bind(window);
+        window.confirm = n.contentWindow.confirm.bind(window);
+        n.remove();
+
+        if (window.location.pathname != '/play/gold') {
+            alert('You must be in a gold quest game!');
+        } else {
+            let gold = Number(parseFloat(prompt('How much gold do you want?')));
+            reactHandler().stateNode.setState({ gold2: gold, gold });
+            alert('Gold added!');
+        };
+    });
+
+    // Button functionality to set crypto
+    var setCryptoButton = document.getElementById('setCryptoButton');
+    setCryptoButton.addEventListener('click', async function() {
+        let n = document.createElement('iframe');
+        document.body.append(n);
+        window.alert = n.contentWindow.alert.bind(window);
+        window.prompt = n.contentWindow.prompt.bind(window);
+        window.confirm = n.contentWindow.confirm.bind(window);
+        n.remove();
+
+        if (window.location.pathname != '/play/hack') {
+            alert('You must join a crypto hack game to use this mod!');
+        } else {
+            let amount = Number(parseFloat(prompt('How much crypto would you like?')));
+            reactHandler().stateNode.setState({ crypto2: amount, crypto: amount });
+            alert('Crypto set!');
+        };
+    });
+
+    // Button functionality to set weight
+    var setWeightButton = document.getElementById('setWeightButton');
+    setWeightButton.addEventListener('click', async function() {
+        let n = document.createElement('iframe');
+        document.body.append(n);
+        window.alert = n.contentWindow.alert.bind(window);
+        window.prompt = n.contentWindow.prompt.bind(window);
+        window.confirm = n.contentWindow.confirm.bind(window);
+        n.remove();
+
+        if (window.location.pathname != '/play/fishing') {
+            alert('You must be in a fishing frenzy game!');
+        } else {
+            let weight = Number(parseFloat(prompt('How much weight do you want?')));
+            reactHandler().stateNode.setState({ weight2: weight, weight });
+            alert('Weight set!');
+        };
+    });
+
+    // Button functionality to set lure
+    var setLureButton = document.getElementById('setLureButton');
+    setLureButton.addEventListener('click', async function() {
+        let n = document.createElement('iframe');
+        document.body.append(n);
+        window.alert = n.contentWindow.alert.bind(window);
+        window.prompt = n.contentWindow.prompt.bind(window);
+        window.confirm = n.contentWindow.confirm.bind(window);
+        n.remove();
+
+        if (window.location.pathname != '/play/fishing') {
+            alert('You must be in a fishing frenzy game!');
+        } else {
+            let lure = Number(parseFloat(prompt('What do you want to set your lure to? (1 - 5)'))) - 1;
+            reactHandler().stateNode.setState({ lure: lure < 0 ? 0 : lure > 4 ? 4 : lure });
+            alert('Lure set!');
+        };
+    });
+
+    // Button functionality to set fossils
+    var setFossilsButton = document.getElementById('setFossilsButton');
+    setFossilsButton.addEventListener('click', async function() {
+        let n = document.createElement('iframe');
+        document.body.append(n);
+        window.alert = n.contentWindow.alert.bind(window);
+        window.prompt = n.contentWindow.prompt.bind(window);
+        window.confirm = n.contentWindow.confirm.bind(window);
+        n.remove();
+
+        let fossils = Number(parseFloat(prompt('How many fossils do you want?')));
+        reactHandler().stateNode.setState({ fossils: fossils });
+
+        alert('Fossils added!');
+    });
+
+    // Hide/Toggle functionality with CTRL + M
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.key === 'm') {
+            container.style.display = (container.style.display === 'none' ? 'block' : 'none');
+        }
+    });
+
+    // Add a button for theme toggling (moon icon for dark theme)
+    var themeToggleButton = document.createElement('button');
+    themeToggleButton.id = 'themeToggleButton';
+    themeToggleButton.innerText = '🌈'; // Rainbow theme icon
+    themeToggleButton.style.position = 'absolute';
+    themeToggleButton.style.bottom = '10px';
+    themeToggleButton.style.left = '10px';
+    themeToggleButton.style.padding = '10px';
+    themeToggleButton.style.backgroundColor = '#2a2a2a';  // Dark theme button
+    themeToggleButton.style.border = 'none';
+    themeToggleButton.style.borderRadius = '8px'; // Polished edges
+    themeToggleButton.style.cursor = 'pointer';
+    themeToggleButton.style.fontSize = '20px';
+    themeToggleButton.style.transition = 'none';  // No transition for better performance
+    themeToggleButton.style.boxShadow = 'none';  // No box shadow initially
+    container.appendChild(themeToggleButton);
+
+    // Function to handle the RGB fading theme
+    let isRainbowTheme = true;
+    function setRainbowBackground() {
+        let time = 0;
+        let interval = setInterval(() => {
+            if (!isRainbowTheme) {
+                clearInterval(interval);
+                return;
+            }
+            time += 0.01;
+            container.style.backgroundColor = `rgb(${Math.sin(time) * 128 + 128}, ${Math.cos(time) * 128 + 128}, ${(Math.sin(time * 0.5) * 128 + 128)})`;
+        }, 30); // Speed of color transition
+    }
+
+    // Start the RGB theme when the page loads
+    setRainbowBackground();
+
+    themeToggleButton.addEventListener('click', function() {
+        if (isRainbowTheme) {
+            isRainbowTheme = false; // Stop rainbow theme
+            themeToggleButton.innerText = '🌙'; // Change icon back to moon for dark theme
+            container.style.backgroundColor = '#2a2a2a'; // Dark theme color
+        } else {
+            isRainbowTheme = true; // Start rainbow theme
+            themeToggleButton.innerText = '🌈'; // Change icon to rainbow emoji
+            setRainbowBackground(); // Start the RGB color cycling
+        }
+    });
+
+    // Helper function to access the React handler
+    function reactHandler() {
+        return Object.values(document.querySelector('#app > div > div'))[1].children[1]._owner;
+    }
+})();
